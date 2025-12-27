@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Todo Frontend</title>
+  </head>
+  <body>
+    <h1>Todo Frontend</h1>
+    <p>
+      Open the console and use fetch to call the API at
+      <code>/api/todos</code> (backend should run on port 5000).
+    </p>
+    <script>
+      // quick sanity fetch example
+      async function checkAPI() {
+        try {
+          const res = await fetch("http://localhost:5000/api/todos");
+          console.log("API response status", res.status);
+        } catch (e) {
+          console.warn("Could not reach backend API", e.message);
+        }
+      }
+      checkAPI();
+    </script>
+  </body>
+</html>
