@@ -3,7 +3,7 @@ import axios from "axios";
 const API_BASE = "http://localhost:5000/api";
 const api = axios.create({ baseURL: API_BASE });
 
-// attach token if available and check expiry
+
 api.interceptors.request.use((cfg) => {
   const token = localStorage.getItem("token");
   const exp = localStorage.getItem("token_exp");

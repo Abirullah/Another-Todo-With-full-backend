@@ -38,7 +38,6 @@ const signup = async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    // create user and mark verified immediately (no OTP flow)
     const user = new User({ name, email, password: hashed, isVerified: true });
     await user.save();
 
@@ -103,7 +102,6 @@ const signin = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    // ensure requester is the same user
     if (!req.userId || req.userId !== id)
       return res.status(403).json({ message: "Forbidden" });
 

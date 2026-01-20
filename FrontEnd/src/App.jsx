@@ -22,11 +22,11 @@ import AuthProvider, { useAuth } from "./auth/AuthProvider";
 import RequireAuth from "./auth/RequireAuth";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
-// Verify page removed - signup flows proceed directly to signin
 import Profile from "./pages/Profile";
 
 function Home() {
   const [todos, setTodos] = useState([]);
+  const [CurrentContant, setCurrentContant] = useState("All")
   const [filter, setFilter] = useState({ status: "", priority: "" });
   const [stats, setStats] = useState({
     total: 0,
@@ -37,7 +37,6 @@ function Home() {
   });
   const auth = useAuth();
   const navigate = useNavigate();
-
   const load = async () => {
     const data = await fetchTodos(filter);
     setTodos(data || []);
@@ -110,7 +109,12 @@ function Home() {
         </div>
         <div className="border-t">
           <div className="p-4">
-            <Filters filter={filter} setFilter={setFilter} />
+            <Filters
+              filter={filter}
+              setFilter={setFilter}
+              // Contant={CurrentContant}
+              // setContant = {setCurrentContant}
+            />
           </div>
           <div className="p-4">
             <TaskList

@@ -7,7 +7,7 @@ const ensureOwner = (todo, userId) => {
   return todo.user.toString() === userId;
 };
 
-// Create a new todo
+
 const createTodo = async (req, res) => {
   try {
     if (!req.userId) return res.status(401).json({ message: "Unauthorized" });
@@ -26,16 +26,15 @@ const createTodo = async (req, res) => {
   }
 };
 
-// Get all todos
+
 const getTodos = async (req, res) => {
   try {
     const { status, priority, search } = req.query;
     const filter = {};
     if (status) filter.status = status;
-    if (priority) filter.priority = priority;
+    if (priority && priority !== "All") filter.priority = priority;
     if (search) filter.title = { $regex: search, $options: "i" };
 
-    // restrict todos to the authenticated user
     if (req.userId) filter.user = req.userId;
     const todos = await Todo.find(filter).sort({ createdAt: -1 });
     res.json(todos);
@@ -44,7 +43,7 @@ const getTodos = async (req, res) => {
   }
 };
 
-// Get single todo
+
 const getTodoById = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
@@ -57,11 +56,10 @@ const getTodoById = async (req, res) => {
   }
 };
 
-// Update todo
+
 const updateTodo = async (req, res) => {
   try {
     const update = req.body;
-    // keep completed boolean in sync with status if provided
     if (update.status) {
       update.completed = update.status === "completed";
     }
@@ -79,7 +77,7 @@ const updateTodo = async (req, res) => {
   }
 };
 
-// Delete todo
+
 const deleteTodo = async (req, res) => {
   try {
     const todo = await Todo.findById(req.params.id);
@@ -96,7 +94,7 @@ const deleteTodo = async (req, res) => {
 
 export { createTodo, getTodos, getTodoById, updateTodo, deleteTodo };
 
-// Stats: counts and percentage
+
 const getStats = async (req, res) => {
   try {
     const filterBase = {};

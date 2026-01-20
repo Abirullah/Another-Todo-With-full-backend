@@ -38,6 +38,11 @@ export default function Filters({ filter, setFilter }) {
       </div>
       <div>
         <StatusButton
+          label="All"
+          active={filter.priority === "All"}
+          onClick={() => setFilter((f) => ({ ...f, priority: "All" }))}
+        />
+        <StatusButton
           label="Low"
           active={filter.priority === "low"}
           onClick={() => setFilter((f) => ({ ...f, priority: "low" }))}
